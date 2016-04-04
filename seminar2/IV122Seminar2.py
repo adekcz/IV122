@@ -1,6 +1,13 @@
+from random import shuffle
+import sys, os, inspect
+#hack to allow importing from specific directory
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+parent = "/".join(cmd_folder.split("/")[0:-1])
+parent += "/commonScripts"
+sys.path.insert(0,parent)
+
 import IV122Graphics
 import Commons
-from random import shuffle
 
 globalResult = []
 def perm(lst):
@@ -30,22 +37,6 @@ def var(lst, k, rep =0):
         for vari in var(listCopy,k-1, rep):
             vari.append(popped)
             result.append(vari)
-    return result
-
-
-def comb1(lst, k, rep =0):
-    if (k == 0):
-        return [[]]
-    result = []
-    for i in range(len(lst)):
-        if (rep == 0):
-            popped = lst.pop(0)
-        lstCopy = lst[:]
-        if (rep == 1) :
-            popped = lst.pop(0)
-        for combi in comb(lstCopy,k-1, rep):
-            combi.append(popped)
-            result.append(combi)
     return result
 
 def comb(lst, k, rep =0):
@@ -103,4 +94,10 @@ def drawPascalTriangle(rows, filename, remaindersUpTo= 2):
 
 if __name__ == "__main__":
     for i in range(2, 9):
-        drawPascalTriangle(500,  "trinagle" + str(i), i)
+        drawPascalTriangle(500,  "output/trinagle" + str(i), i)
+    print(perm([1,2,3,4]))
+    print("var with rep" + str(var([1,2,3,4],3, True)))
+    print("var without rep" + str(var([1,2,3,4],3, False)))
+    print("comb witrep" + str(comb([1,2,3,4],3, True)))
+    print("comb without rep" + str(comb([1,2,3,4],3, False)))
+
