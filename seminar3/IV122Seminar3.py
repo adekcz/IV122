@@ -15,24 +15,24 @@ def drawNpolygon(name, n, length):
         turtle.left(360.0/n)
     turtle.close()
 
-def drawStar(name, n, length): #works only for odd n >=3
+def drawStar(name, n, length): #some n work better then other n
     turtle = IV122Graphics.Turtle(name,  400, 400, 50, 200)
 
-    if (n%2 ==0 and (n/2)%2 == 1):
+    if (n%2 ==0 and (n/2)%2 == 1): #should be
         upperLim = n*2
         x = 1
         div = n
-    elif (n%4 == 0):
+    elif (n%4 == 0): #commented what
         upperLim = 2*n
         x = 2
         div = n
-    else:
+    else: #each branch does
         upperLim = n
         x=2
         div = n
     for i in range(upperLim):
         turtle.forward(length)
-        turtle.left(180 - (360/n)/x)
+        turtle.left(180 - (360.0/n)/x)
     turtle.close()
         
 def pentagramRelative():
@@ -41,14 +41,14 @@ def pentagramRelative():
     length = 100
     for i in range(n):
         turtle.forward(length)
-        turtle.left(360/n)
-    turtle.left(360/n + 180 + (180 - 360/(2*n)))
-    a = length * math.sin(Commons.degToRad(360/n))
-    b = length * math.cos(Commons.degToRad(360/n))
+        turtle.left(360.0/n)
+    turtle.left(360.0/n + 180 + (180 - 360.0/(2*n)))
+    a = length * math.sin(Commons.degToRad(360.0/n))
+    b = length * math.cos(Commons.degToRad(360.0/n))
     length = math.sqrt((100+b)**2 + a**2)
     for i in range(n):
         turtle.forward(length)
-        turtle.left(180 - (360/n)/2)
+        turtle.left(180 - (360.0/n)/2)
     turtle.close()
 
 def pentagramAbsolute():
@@ -60,7 +60,7 @@ def pentagramAbsolute():
     for i in range(n-1): #from turtle
         newX = length * math.sin(Commons.degToRad(orientation))  + points[-1][0]
         newY = length * math.cos(Commons.degToRad(orientation))  + points[-1][1]
-        orientation += 360/n
+        orientation += 360.0/n
         points.append((newX, newY))
 
     for target in points:
@@ -182,7 +182,7 @@ def pentagonIncpetion(turtle, size, n):
         for i in range(5):
             turtle.penDown()
             turtle.forward(size)
-            turtle.left(360/5)
+            turtle.left(360.0/5)
             turtle.penUp()
         return
     pentagonIncpetion(turtle, size, n-1)

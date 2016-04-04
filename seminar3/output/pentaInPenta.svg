@@ -1,0 +1,15 @@
+<svg version="1.1"
+     baseProfile="full"
+     width="400" height="400"
+     xmlns="http://www.w3.org/2000/svg">
+<line x1="50" y1="200"  x2="150.0" y2="200.0" stroke="Black" stroke-width="2"/>
+<line x1="150.0" y1="200.0"  x2="180.901699437" y2="104.89434837" stroke="Black" stroke-width="2"/>
+<line x1="180.901699437" y1="104.89434837"  x2="100.0" y2="46.1158231412" stroke="Black" stroke-width="2"/>
+<line x1="100.0" y1="46.1158231412"  x2="19.0983005625" y2="104.89434837" stroke="Black" stroke-width="2"/>
+<line x1="19.0983005625" y1="104.89434837"  x2="50.0" y2="200.0" stroke="Black" stroke-width="2"/>
+<line x1="50.0" y1="200.0"  x2="180.901699437" y2="104.89434837" stroke="Black" stroke-width="2"/>
+<line x1="180.901699437" y1="104.89434837"  x2="19.0983005625" y2="104.89434837" stroke="Black" stroke-width="2"/>
+<line x1="19.0983005625" y1="104.89434837"  x2="150.0" y2="200.0" stroke="Black" stroke-width="2"/>
+<line x1="150.0" y1="200.0"  x2="100.0" y2="46.1158231412" stroke="Black" stroke-width="2"/>
+<line x1="100.0" y1="46.1158231412"  x2="50.0" y2="200.0" stroke="Black" stroke-width="2"/>
+</svg>

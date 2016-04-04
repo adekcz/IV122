@@ -1,0 +1,10 @@
+<svg version="1.1"
+     baseProfile="full"
+     width="500" height="500"
+     xmlns="http://www.w3.org/2000/svg">
+<line x1="250" y1="400"  x2="350.0" y2="400.0" stroke="Black" stroke-width="2"/>
+<line x1="350.0" y1="400.0"  x2="380.901699437" y2="304.89434837" stroke="Black" stroke-width="2"/>
+<line x1="380.901699437" y1="304.89434837"  x2="300.0" y2="246.115823141" stroke="Black" stroke-width="2"/>
+<line x1="300.0" y1="246.115823141"  x2="219.098300563" y2="304.89434837" stroke="Black" stroke-width="2"/>
+<line x1="219.098300563" y1="304.89434837"  x2="250.0" y2="400.0" stroke="Black" stroke-width="2"/>
+</svg>
