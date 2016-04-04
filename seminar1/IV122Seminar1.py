@@ -1,12 +1,8 @@
 import sys, os, inspect
+#hack to allow importing from specific directory
 cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
-print("neco")
-
-print("inside If")
 parent = "/".join(cmd_folder.split("/")[0:-1])
-print("1: " + parent)
 parent += "/commonScripts"
-print("2: " + parent)
 sys.path.insert(0,parent)
 
 import IV122Graphics
@@ -14,7 +10,7 @@ import Commons
 
 def squaredRainbow():
     ff = 255
-    bitmap = IV122Graphics.BitMap("neco3.jpg", ff, ff)
+    bitmap = IV122Graphics.BitMap("output/squaredRainbow.jpg", ff, ff)
     for i in range(ff):
         for j in range(ff):
             bitmap.putPixel(i, j, (i,j,ff))
@@ -23,7 +19,7 @@ def squaredRainbow():
 def weirdGrid():
     dim = 400
     stepSize = 20
-    svg = IV122Graphics.SVG("neco.svg" ,dim, dim)
+    svg = IV122Graphics.SVG("output/curvyGrid.svg" ,dim, dim)
     coords = ((0, 1, 1), (0, 1, -1), (1, -1, 1), (1, -1, -1))
 
     for quadrant in range(4):
@@ -89,7 +85,6 @@ def ullmanSpiral(n):
     currentDirection = (1,0)
 
     while (n*n >= currentNumber):
-        print("{0} {1} {2} {3}".format(currDirectionStreak, currDirectionStreakLimit, counterForStreakLimitIncrese, increaseStreakLimit))
         matrix[indexY][indexX] = currentNumber
         currentNumber += 1
         indexX = indexX + currentDirection[0]
@@ -102,28 +97,28 @@ def ullmanSpiral(n):
             if(increaseStreakLimit == counterForStreakLimitIncrese):
                 currDirectionStreakLimit +=1
                 counterForStreakLimitIncrese = 0
-        Commons.printArray(matrix)
-        print("")
     return matrix
 
 
+def collatzStepCount(upperLimit):
+    outputStepCount = open("output/collatzStepCount.txt", "w")
+    for i in range (1,upperLimit):
+        outputStepCount.write(str(i) + "\t" + str(collatz(i)) + "\n")
+
+def collatzMax(upperLimit):
+    outputMax = open("output/collatzMax.txt", "w")
+    for i in range (1,upperLimit):
+        outputMax.write(str(i) + "\t" + str(collatz_max(i)) + "\n")
+
 if __name__ == "__main__":
     
-#    outputStepCount = open("collatzStepCount.txt", "w")
-#    outputMax = open("collatzMax.txt", "w")
-#    print("started from console!!!! (hello world)") 
-#    upperLimit = 8000
-#    for i in range (1,upperLimit):
-#        print(str(i) + " " + str(collatz(i)))
-#        outputStepCount.write(str(i) + "\t" + str(collatz(i)) + "\n")
-#
-#    print("-----")
-#    for i in range (1,upperLimit):
-#        print(str(i) + " " + str(collatz_max(i)))
-#        outputMax.write(str(i) + "\t" + str(collatz_max(i)) + "\n")
-#
-#    weirdGrid()
-#    squaredRainbow()
+    print("started from console!!!! (hello world)") 
+    upperLimit = 8000
+    collatzStepCount(upperLimit)
+    collatzMax(upperLimit)
 
+    print("-----")
+
+    weirdGrid()
     squaredRainbow()
     Commons.printArray(ullmanSpiral(5))
