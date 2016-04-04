@@ -4,7 +4,7 @@ import math
 
 def circle(name, x,y, r, full = 0):
     size = 500
-    bitmap = IV122Graphics.BitMap("sem4/shapes/" + name + ".jpg", size, size)
+    bitmap = IV122Graphics.BitMap("output/shapes/" + name + ".jpg", size, size)
     thickness = 300.0
     
     for i_x in range(size):
@@ -19,7 +19,7 @@ def circle(name, x,y, r, full = 0):
     
 def spiral(name, x,y, r, full = 0):
     size = 500
-    bitmap = IV122Graphics.BitMap("sem4/shapes/" + name + ".jpg", size, size)
+    bitmap = IV122Graphics.BitMap("output/shapes/" + name + ".jpg", size, size)
     
     #todo zmenit 20 na parametrizovatleny rozestup
     for t in range(360*5):
@@ -31,7 +31,7 @@ def spiral(name, x,y, r, full = 0):
     bitmap.close()
 
 def colorEquilateralTriangle(name, size = 500):
-    bitmap = IV122Graphics.BitMap("sem4/shapes/" + name + ".jpg", size, size)
+    bitmap = IV122Graphics.BitMap("output/shapes/" + name + ".jpg", size, size)
 
     bot = 10
     right = size - 10
@@ -47,6 +47,10 @@ def colorEquilateralTriangle(name, size = 500):
                 bitmap.putPixel(i_x, i_y, (100, 100, 100))
     bitmap.close()
 
+def drawFilledPolygon(points,name,  size):
+    bitmap = IV122Graphics.BitMap("output/" + name + ".jpg", size, size)
+
+    bitmap.close()
 
 
 if __name__ == "__main__":
@@ -54,4 +58,5 @@ if __name__ == "__main__":
     #circle("full", 150,250,50, 1)
     #spiral("spiral", 250,250,50)
     colorEquilateralTriangle("triangle")
+    drawFilledPolygon( [(10, 10), (180, 20), (160, 150), (100, 50), (20, 180)],"polygon",  400)
 
