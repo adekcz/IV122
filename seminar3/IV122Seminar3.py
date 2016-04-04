@@ -108,7 +108,7 @@ def triangleInception(size =200, d = 10):
         turtle.penUp()
         turtle.forward(d)
         turtle.left(90)
-        turtle.forward(d *(2.0/3) *  (math.sqrt(3.0)/2.0))
+        turtle.forward(d *(2.0/3) *  (math.sqrt(3.0)/2.0)) #deserves comment
         turtle.right(90)
         turtle.penDown()
         curSize = curSize - 2*d
@@ -177,7 +177,7 @@ def sierpinskiTriangleExecute():
     sierpinskiTriangle(sierp, 200,  5)
     sierp.close()
 
-def pentagonIncpetion(turtle, size, n):
+def pentagonIncpetion(turtle, size, n): #does not work
     if (n == 0):
         for i in range(5):
             turtle.penDown()
@@ -195,7 +195,7 @@ def pentagonIncpetion(turtle, size, n):
         turtle.left(180)
     return
 
-def pentagonIncpetionExecute():
+def pentagonIncpetionExecute(): 
     pentaDrawer = IV122Graphics.Turtle("output/fractal/pentagon.svg",  1000, 1000, 400, 500)
     pentagonIncpetion(pentaDrawer, 100,  2)
     pentaDrawer.close()
@@ -242,15 +242,6 @@ if __name__ == "__main__":
     for i in range(2,20):
         drawNpolygon("output/poly/polygon" + str(i) + ".svg", i, 100)
         drawStar("output/stars/star" + str(i) + ".svg", i, 100)
-    turtle = IV122Graphics.Turtle("output/test.svg",  400, 400, 50, 300)
-    turtle.forward(100)
-    turtle.right(90)
-    turtle.forward(50)
-    turtle.left(90)
-    turtle.back(25)
-    turtle.left(90)
-    turtle.forward(10)
-    turtle.close()
 
     pentagramRelative()
     pentagramAbsolute()
@@ -261,7 +252,7 @@ if __name__ == "__main__":
     fractalBushExecute()
     kochSnowflakeExecute()
     sierpinskiTriangleExecute()
-    #turtleCreativityExecute()
-    #creativity2Execute()
+    turtleCreativityExecute()
+    creativity2Execute()
 
     pentagonIncpetionExecute()
