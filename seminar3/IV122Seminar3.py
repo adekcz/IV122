@@ -1,14 +1,18 @@
-import Commons
+import sys, os, inspect
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+parent = "/".join(cmd_folder.split("/")[0:-1])
+parent += "/commonScripts"
+sys.path.insert(0,parent)
+
 import math
+import Commons
 import IV122Graphics
 
-
 def drawNpolygon(name, n, length):
-    
-    turtle = IV122Graphics.Turtle(name,  400, 400, 200, 200)
+    turtle = IV122Graphics.Turtle(name,  length*n, length*n, length*n/2, length*(n-1))
     for i in range(n):
         turtle.forward(length)
-        turtle.left(360/n)
+        turtle.left(360.0/n)
     turtle.close()
 
 def drawStar(name, n, length): #works only for odd n >=3
@@ -32,7 +36,7 @@ def drawStar(name, n, length): #works only for odd n >=3
     turtle.close()
         
 def pentagramRelative():
-    turtle = IV122Graphics.Turtle("sem3/pentaInPenta.svg",  400, 400, 50, 200)
+    turtle = IV122Graphics.Turtle("output/pentaInPenta.svg",  400, 400, 50, 200)
     n = 5
     length = 100
     for i in range(n):
@@ -52,7 +56,7 @@ def pentagramAbsolute():
     points = [(50,200)]
     n = 5
     orientation = 90
-    svg = IV122Graphics.SVG("sem3/absolute.svg", 400, 400)
+    svg = IV122Graphics.SVG("output/absolute.svg", 400, 400)
     for i in range(n-1): #from turtle
         newX = length * math.sin(Commons.degToRad(orientation))  + points[-1][0]
         newY = length * math.cos(Commons.degToRad(orientation))  + points[-1][1]
@@ -68,7 +72,7 @@ def pentagramAbsolute():
 
 
 def squareInception(size = 200.0, percent = 20.0, nesting = 10.0):
-    turtle = IV122Graphics.Turtle("sem3/squareInception.svg",  400, 400, 50, 300)
+    turtle = IV122Graphics.Turtle("output/squareInception.svg",  400, 400, 50, 300)
     curSize = size
     for level in range(nesting):
         for i in range(4):
@@ -84,7 +88,7 @@ def squareInception(size = 200.0, percent = 20.0, nesting = 10.0):
 
       
 def gridInCircle(radius = 200, delta = 10):
-    svg = IV122Graphics.SVG("sem3/gridInCircle.svg",  radius*2, radius*2)
+    svg = IV122Graphics.SVG("output/gridInCircle.svg",  radius*2, radius*2)
     x = radius
     y = radius
     for curY in range(-radius, radius, delta):
@@ -95,7 +99,7 @@ def gridInCircle(radius = 200, delta = 10):
     svg.close()
 
 def triangleInception(size =200, d = 10):
-    turtle = IV122Graphics.Turtle("sem3/triangleInception.svg",  400, 400, 50, 300)
+    turtle = IV122Graphics.Turtle("output/triangleInception.svg",  400, 400, 50, 300)
     curSize = size
     for i in range( size / (d*2)):
         for i in range(3):
@@ -124,7 +128,7 @@ def fractalBush(turtle, length, n):
     turtle.back(length)
 
 def fractalBushExecute():
-    bushTurtle = IV122Graphics.Turtle("sem3/fractal/bush.svg",  400, 400, 200, 300)
+    bushTurtle = IV122Graphics.Turtle("output/fractal/bush.svg",  400, 400, 200, 300)
     bushTurtle.left(90)
     fractalBush(bushTurtle, 128, 8)
     bushTurtle.close()
@@ -143,7 +147,7 @@ def kochSnowFlake(turtle,size,  deg):
     kochSnowFlake(turtle, size/3, deg-1)
 
 def kochSnowflakeExecute():
-    snowFlake = IV122Graphics.Turtle("sem3/fractal/koch.svg",  1000, 1000, 400, 500)
+    snowFlake = IV122Graphics.Turtle("output/fractal/koch.svg",  1000, 1000, 400, 500)
     for i in range(3):
         kochSnowFlake(snowFlake, 400,  5)
         snowFlake.left(120)
@@ -169,7 +173,7 @@ def sierpinskiTriangle(turtle,size,  deg):
     turtle.left(120)
 
 def sierpinskiTriangleExecute():
-    sierp = IV122Graphics.Turtle("sem3/fractal/sierp.svg",  1000, 1000, 400, 500)
+    sierp = IV122Graphics.Turtle("output/fractal/sierp.svg",  1000, 1000, 400, 500)
     sierpinskiTriangle(sierp, 200,  5)
     sierp.close()
 
@@ -192,7 +196,7 @@ def pentagonIncpetion(turtle, size, n):
     return
 
 def pentagonIncpetionExecute():
-    pentaDrawer = IV122Graphics.Turtle("sem3/fractal/pentagon.svg",  1000, 1000, 400, 500)
+    pentaDrawer = IV122Graphics.Turtle("output/fractal/pentagon.svg",  1000, 1000, 400, 500)
     pentagonIncpetion(pentaDrawer, 100,  2)
     pentaDrawer.close()
     
@@ -225,20 +229,20 @@ def creativity2(turtle,size,  deg):
         turtle.left(120)
 
 def creativity2Execute():
-    somethign = IV122Graphics.Turtle("sem3/fractal/creative2.svg",  400, 400, 200, 200)
+    somethign = IV122Graphics.Turtle("output/fractal/creative2.svg",  400, 400, 200, 200)
     creativity2(somethign, 800,  4)
     somethign.close()
     
 def turtleCreativityExecute():
-    triangleFractal = IV122Graphics.Turtle("sem3/fractal/creativeTriangle.svg",  10000, 10000, 5000, 5000)
+    triangleFractal = IV122Graphics.Turtle("output/fractal/creativeTriangle.svg",  10000, 10000, 5000, 5000)
     turtleCreativity(triangleFractal, 800,  8)
     triangleFractal.close()
 #fraktaly ker , vlocka, sierp, petiuhelnik, pak ty dalsi jsou spis pro zajimavostj
 if __name__ == "__main__":
     for i in range(2,20):
-        drawNpolygon("sem3/poly/polygon" + str(i) + ".svg", i, 100)
-        drawStar("sem3/stars/star" + str(i) + ".svg", i, 100)
-    turtle = IV122Graphics.Turtle("sem3/test.svg",  400, 400, 50, 300)
+        drawNpolygon("output/poly/polygon" + str(i) + ".svg", i, 100)
+        drawStar("output/stars/star" + str(i) + ".svg", i, 100)
+    turtle = IV122Graphics.Turtle("output/test.svg",  400, 400, 50, 300)
     turtle.forward(100)
     turtle.right(90)
     turtle.forward(50)
