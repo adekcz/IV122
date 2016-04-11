@@ -10,22 +10,48 @@ import Commons
 
 
 
-def angle(p1, p2):
 
 def closure(n):
     size = 400
-    img = IV122Graphics.BitMap("closure.jpg", size, size)
-    points = generatePoint(20, size)
+    img = IV122Graphics.SVG("output/closure.svg", size, size)
 
-    for i in range(points):
-        for j in range(i, len(points)):
+    points = generatePoint(n, size)
+    img.setFill()
 
+    for p in points:
+        img.circle(5, p[0], p[1])
+        
+    startPoint = leftMostPoint(points)
+    currentPoint = startPoint
 
-
+    for i in range(len(points)):
+        nextPoint = largestAngleTo(currentPoint, points)
+        img.line(currentPoint[0], currentPoint[1],nextPoint[0],nextPoint[1])
+        currentPoint = nextPoint
 
 
     img.close()
     
+def largestAngleTo(origin, points):
+    largestSoFar = 0
+    result = origin
+    for p in points:
+        if(p == origin):
+            continue
+        newAngle = ( float(p[1] - origin[1]) / float(p[0] - origin[0]))
+        print(str(origin) + " " + str(p) + " " + str(largestSoFar) + " " + str(newAngle))
+        if newAngle > largestSoFar:
+            result = p
+            largestSoFar = newAngle
+    print()
+    return result
+
+def leftMostPoint(points):
+    result = points[0]
+    for p in points:
+        if p[0]<result[0]:
+            result = p
+    return result
 
 def generatePoint(n,upperLimit,  normal = False):
     result = []
@@ -39,6 +65,5 @@ def generatePoint(n,upperLimit,  normal = False):
 
 if __name__ == "__main__":
     n = 20
-    print(generatePoint(30, 300))
-    print(generatePoint(30, 300, True))
+    closure(5)
 

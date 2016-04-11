@@ -42,7 +42,7 @@ def chaosgame(path, ngon, ratio):
 
 def parallelRewrite(inputString, rules):
     result = ""
-    for(c in inputString):
+    for c in inputString:
         for rule in rules:
             if c == rule[0]:
                 result += rule[1]
@@ -51,8 +51,8 @@ def parallelRewrite(inputString, rules):
     return result
 
 def drawImage(name, inputString, rulesInterpretation):
-    
-    turtle = IV122Graphics.Turtle(name,  400, 400, 200, 200)
+    size = 800
+    turtle = IV122Graphics.Turtle(name,  size, size, 20, size*3/4)
     for c in inputString:
         eval("turtle." + rulesInterpretation[c])
     turtle.close()
@@ -64,12 +64,15 @@ def LSystemGenerator(name, init, rules, interpretation, nesting):
         tempString = parallelRewrite(tempString, rules)
         
 
+    drawImage(name, tempString, interpretation)
     return
 
 if __name__ == "__main__":
     #print(generateNGonPoint(3,100))
-    chaosgame("output/chaos3_half.jpg", 3, 0.5)
-    chaosgame("output/chaos5_third.jpg", 5, 1.0/3)
-    chaosgame("output/chaos6_third.jpg", 6, 1.0/3)
+    #chaosgame("output/chaos3_half.jpg", 3, 0.5)
+    #chaosgame("output/chaos5_third.jpg", 5, 1.0/3)
+    #chaosgame("output/chaos6_third.jpg", 6, 1.0/3)
 
     
+    LSystemGenerator("output/lsystem1.svg", "F--F--F", [("F", "F+F--F+F")], 
+    {"F" : "forward(2)", "+" : "right(60)", "-" : "left(60)"}, 5)
