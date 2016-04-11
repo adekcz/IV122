@@ -7,6 +7,7 @@ sys.path.insert(0,parent)
 
 import IV122Graphics
 import Commons
+import math
 
 
 
@@ -31,6 +32,9 @@ def closure(n):
 
 
     img.close()
+
+def vectorSize(a, b):
+    return math.sqrt(a**2 + b**2)
     
 def largestAngleTo(origin, points):
     largestSoFar = 0
@@ -38,12 +42,14 @@ def largestAngleTo(origin, points):
     for p in points:
         if(p == origin):
             continue
-        newAngle = ( float(p[1] - origin[1]) / float(p[0] - origin[0]))
-        print(str(origin) + " " + str(p) + " " + str(largestSoFar) + " " + str(newAngle))
-        if newAngle > largestSoFar:
+        if(p[0] < origin[0]):
+            continue
+        newAngle = (float(p[0] - origin[0])) / vectorSize(p[0] - origin[0], p[1] - origin[1])
+        #print(str(origin) + " " + str(p) + " " + str(largestSoFar) + " " + str(newAngle))
+        if newAngle < largestSoFar: #todo change variable to smallest
             result = p
             largestSoFar = newAngle
-    print()
+    #print()
     return result
 
 def leftMostPoint(points):
@@ -65,5 +71,5 @@ def generatePoint(n,upperLimit,  normal = False):
 
 if __name__ == "__main__":
     n = 20
-    closure(5)
+    closure(30)
 
