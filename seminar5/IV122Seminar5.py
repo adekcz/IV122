@@ -23,10 +23,17 @@ def closure(n):
         img.circle(5, p[0], p[1])
         
     startPoint = leftMostPoint(points)
+    img.setFill("Red")
+    img.circle(10, startPoint[0], startPoint[1])
+    img.setFill()
     currentPoint = startPoint
 
     for i in range(len(points)):
-        nextPoint = largestAngleTo(currentPoint, points)
+        nextPoint = findNextPointUniversal(currentPoint, points, lambda origin,p: p[0] < origin[0] or p[1]<origin[1], lambda origin, p: float(p[0] - origin[0]) / float(p[1]- origin[1]))
+        img.line(currentPoint[0], currentPoint[1],nextPoint[0],nextPoint[1])
+        currentPoint = nextPoint
+    for i in range(len(points)):
+        nextPoint = findNextPointUniversal(currentPoint, points, lambda origin,p: p[0] < origin[0] or p[1]>origin[1], lambda origin, p: float(abs(p[1] - origin[1])) / float(abs(p[0]- origin[0])))
         img.line(currentPoint[0], currentPoint[1],nextPoint[0],nextPoint[1])
         currentPoint = nextPoint
 
@@ -36,16 +43,48 @@ def closure(n):
 def vectorSize(a, b):
     return math.sqrt(a**2 + b**2)
     
-def largestAngleTo(origin, points):
-    largestSoFar = 0
+def findNextPointUniversal(origin, points, condition, ratioComputation):
+    largestSoFar = 100
     result = origin
     for p in points:
         if(p == origin):
             continue
-        if(p[0] < origin[0]):
+        if(condition(origin, p)):
             continue
-        newAngle = (float(p[0] - origin[0])) / vectorSize(p[0] - origin[0], p[1] - origin[1])
-        #print(str(origin) + " " + str(p) + " " + str(largestSoFar) + " " + str(newAngle))
+        ratio = ratioComputation(origin, p)
+        newAngle = Commons.radToDeg(math.atan(ratio))
+        if newAngle < largestSoFar: #todo change variable to smallest
+            result = p
+            largestSoFar = newAngle
+    #print()
+    return result
+
+def findNextPointRightLower(origin, points):
+    largestSoFar = 100
+    result = origin
+    for p in points:
+        if(p == origin):
+            continue
+        if(p[0] < origin[0] or p[1]<origin[1]):
+            continue
+        ratio = float(p[0] - origin[0]) / float(p[1]- origin[1])
+        newAngle = Commons.radToDeg(math.atan(ratio))
+        if newAngle < largestSoFar: #todo change variable to smallest
+            result = p
+            largestSoFar = newAngle
+    #print()
+    return result
+
+def findNextPointRightUpper(origin, points):
+    largestSoFar = 100
+    result = origin
+    for p in points:
+        if(p == origin):
+            continue
+        if(p[0] < origin[0] or p[1]>origin[1]):
+            continue
+        ratio = float(abs(p[1] - origin[1])) / float(abs(p[0]- origin[0]))
+        newAngle = Commons.radToDeg(math.atan(ratio))
         if newAngle < largestSoFar: #todo change variable to smallest
             result = p
             largestSoFar = newAngle
@@ -71,5 +110,6 @@ def generatePoint(n,upperLimit,  normal = False):
 
 if __name__ == "__main__":
     n = 20
-    closure(30)
+    closure(40)
+    print(Commons.radToDeg(math.atan(1)))
 
