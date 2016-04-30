@@ -10,13 +10,51 @@ import Commons
 import math
 
 
+def checkIsBetween(p1, p2, checkedP):
+    for i in range(2):
+        if ((abs(p1[i] - checkedP[i]) + abs(p2[i] - checkedP[i])) != abs(p1[i] - p2[i])): #comparing false, should use epsilon
+            return False
+    return True
 
+def computeLineIntersection(p1, p2, p3, p4):
+    ix = ((p1[0]*p2[1] - p1[1]*p2[0])*(p3[0]-p4[0]) - (p1[0] - p2[0])*(p3[0]*p4[1] - p3[1]*p4[0]))/((p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1] -p2[1])*(p3[0]-p4[0]))
+    iy = ((p1[0]*p2[1] - p1[1]*p2[0])*(p3[1]-p4[1]) - (p1[1] - p2[1])*(p3[0]*p4[1] - p3[1]*p4[0]))/((p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1] -p2[1])*(p3[0]-p4[0]))
+    result = (ix, iy)
+    if (not checkIsBetween(p1, p2, result)):
+        return -1
+    if (not checkIsBetween(p3, p4, result)):
+        return -1
+    return result
+
+def intersections(n, name, normal = False):
+    size = 400
+    img = IV122Graphics.SVG("output/" + name + ".svg", size, size)
+
+    lines = generateLineSegments(n, size, normal)
+    img.setFill()
+
+    for line in lines:
+        img.line(line[0][0],line[0][1],line[1][0], line[1][1])
+        
+    for line1 in lines:
+        for line2 in lines:
+            if(line1 != line2):
+                inter = computeLineIntersection(line1[0], line1[1], line2[0], line2[1])
+                if (inter == -1):
+                    continue
+                img.setFill("Red")
+                img.circle(3, inter[0], inter[1])
+                img.setFill()
+
+
+
+    img.close()
 
 def closure(n):
     size = 400
     img = IV122Graphics.SVG("output/closure.svg", size, size)
 
-    points = generatePoint(n, size)
+    points = generatePoints(n, size)
     img.setFill()
 
     for p in points:
@@ -98,18 +136,31 @@ def leftMostPoint(points):
             result = p
     return result
 
-def generatePoint(n,upperLimit,  normal = False):
+def generatePoints(n,upperLimitForCoordinate,  normal = False):
     result = []
     for i in range(n):
         if (normal):
-            result.append((random.normalvariate(upperLimit/2,upperLimit/(6*2)), random.normalvariate(upperLimit/2,upperLimit/(6*2)) ))
+            result.append((random.normalvariate(upperLimitForCoordinate/2,upperLimitForCoordinate/(4)), random.normalvariate(upperLimitForCoordinate/2,upperLimitForCoordinate/(4)) ))
         else:
-            result.append((random.uniform(0, upperLimit), random.uniform(0, upperLimit)))
+            result.append((random.uniform(0, upperLimitForCoordinate), random.uniform(0, upperLimitForCoordinate)))
     
     return result
 
+def generateLineSegments(n, upperLimitForCoordinate, normal = False):
+    points = generatePoints(n*2, upperLimitForCoordinate, normal)
+    resultLineSegments = []
+    for i in range(n):
+        resultLineSegments.append((points[i*2], points[i*2 +1]))
+    return resultLineSegments
+
+
+
 if __name__ == "__main__":
     n = 20
-    closure(40)
+    intersections(20, "intersectionsUniform1")
+    intersections(20, "intersectionsUniform2")
+    intersections(20, "intersectionsNormalDist1", True)
+    intersections(20, "intersectionsNormalDist2", True)
+    #closure(40)
     print(Commons.radToDeg(math.atan(1)))
 

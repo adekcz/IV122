@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# that comment is neccesary because copied data from lecture pdfs contain utf8 characters...  but "-" (minus) didn't work, had to edit manually
 import sys, os, inspect
 cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
 parent = "/".join(cmd_folder.split("/")[0:-1])
@@ -164,12 +166,42 @@ def mrcmStar():
     lines = mrcm(matrices, 4)
     drawImage(lines, "mrcmStar")
 
+#to lazy programmer, convert copy and pasted values from pdf to matrices
+def parseFromPDFString(data): #in CS not only trees are bottom up, but also fern
+    resultMat = [[[0 for x in range(3)] for x in range(3)] for x in range(4)]
+    lines = data.split("\n")
+    for lineNum in range(len(lines)):
+        print("line: " + lines[lineNum])
+        numbers = lines[lineNum].split(" ")
+        resultMat[lineNum][0][0] = float(numbers[0])
+        resultMat[lineNum][0][1] = float(numbers[1])
+        resultMat[lineNum][0][2] = float(numbers[4])*200
+        resultMat[lineNum][1][0] = float(numbers[2])
+        resultMat[lineNum][1][1] = float(numbers[3])
+        resultMat[lineNum][1][2] = float(numbers[5])*200
+        for i in range(3):
+            resultMat[lineNum][2][i] = 0 if i!=2 else 1
+    Commons.printArray(resultMat)
+    return resultMat
+
+    #ok, now i am somehow dissapointed that there are no more sample values after parsley..
+def mrcmParsley():
+    #clear leading zeros, change unrecognizable chars to "minus" char
+    data = """0.849 0.037 -0.037 0.849 0.075 0.183
+0.197 -0.226 0.226 0.197 0.4 0.049
+-0.15 0.283 0.26 0.237 0.575 0.084
+0 0 0 0.16 0.5 0 """
+    matrices= parseFromPDFString(data)
+    lines = mrcm(matrices, 4)
+    drawImage(lines, "parsley")
+    printMatrixesOfLines(matrices)
 if __name__ == "__main__":
     print("neco")
 
     #sample1()
 
-    mrcmStar()
+    #mrcmStar()
+    mrcmParsley()
 
     #testingMrcmStar()
 

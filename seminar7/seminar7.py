@@ -10,17 +10,39 @@ import Commons
 def nextMandelBrot(curr, c):
     return curr*curr + c
     
-def mandelBrot():
-    imgSize = 400
+
+#-2.0 <= cutX, cutY <=2.0
+def mandelBrot(imgSize, cutX, cutY, cutSize, name = "mandelbrot"):
+#imgsize resaclovat na ctverec -2, 2
+    #cutX = -1
+    #cutY = -1
+    #cutSize = imgSize/4.0
+
+#multiply something by cutSize, add cutX to something, add cutY to something
+
+    scaleFactor = imgSize / (4.0 )
+    scaleFactor2 = imgSize / cutSize
+    #scaleFactorX = imgSize / (4.0 * (-2.0/cutX)) #
+    #scaleFactorY = imgSize / (4.0 * (-2.0/cutY)) # bullshit
+
+# scaledX cutX
+#         -2   = 0
+#         -1   = +1
+#          0     +2 
+#          1     +3
+#          2     +4 
+
     depth = 20
     simpleHeuristic = 2
 
-    bitmap = IV122Graphics.BitMap("output/madelbrot3.jpg", imgSize, imgSize)
+    bitmap = IV122Graphics.BitMap("output/" + name + ".jpg", imgSize, imgSize)
 
     for x in range(-imgSize/2, imgSize/2):
         for y in range(-imgSize/2, imgSize/2):
             z = complex(0,0)
-            c = complex(x/100.0,y/100.0) 
+            scaledX = x/scaleFactor 
+            scaledY = y/scaleFactor
+            c = complex((scaledX/scaleFactor2) + cutX - 2, (scaledY/scaleFactor2) + cutY - 2 )
             currDepth = 0
             while abs(z) < simpleHeuristic and currDepth < depth:
                 z = nextMandelBrot(z, c)
@@ -67,7 +89,10 @@ def juliusSet():
 
 
 if __name__ == "__main__":
-    mandelBrot()
+    imgSize = 1600
+    mandelBrot(imgSize, -1, -1, 400, "mandelBrot_1_1")
+    mandelBrot(imgSize, -1, 0, 400, "mandelBrot_10")
+    mandelBrot(imgSize, 0, 1, 400, "mandelBrot01")
     juliusSet()
 
     bitmap = IV122Graphics.BitMap("output/test.jpg", 400, 400)
