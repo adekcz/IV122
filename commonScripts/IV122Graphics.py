@@ -16,6 +16,33 @@ class SVG(Graphics):
         self.outputFile.write( "<svg version=\"1.1\"\r\n     baseProfile=\"full\"\r\n     width=\"{0}\" height=\"{1}\"\r\n     xmlns=\"http://www.w3.org/2000/svg\">\n".format(width, height))
         self.setStroke()
         self.setFill()
+        self.flippedByX = False
+        self.width = width
+        self.height = height
+
+    def getX(inputX):
+        if(flippedByX):
+            return self.height - inputX
+        else:
+            return inputX
+
+    def getY(inputY):
+        return inputY
+
+    def getLength(orig):
+        return orig
+
+    def setCustomMid(newX, newY):
+        self.midX = newX
+        self.midY = newY
+
+    def fliByX():
+        self.flippedByX = not self.flippedByX
+
+    #current version supports only squares (newMaxX == newMaxY) bcs of rescaling lines not perpendicular to axes...
+    def resizeCoordinates(newMaxX, newMaxY):
+        this.maxX = newMaxX
+        this.maxY = newMaxY
 
     def close(self):
         self.outputFile.write( "</svg>\n" )
@@ -28,13 +55,13 @@ class SVG(Graphics):
         self.fillColor  = c
 
     def rect(self,x1,y1, width, height):
-        self.outputFile.write("<rect x=\"{0}\" y=\"{1}\" width=\"{2}\" height=\"{3}\" fill=\"{4}\" />\n".format(x1, y1, width, height, self.fillColor))
+        self.outputFile.write("<rect x=\"{0}\" y=\"{1}\" width=\"{2}\" height=\"{3}\" fill=\"{4}\" />\n".format(getX(x1), getY(y1), getLength(width), getLength(height), self.fillColor))
 
     def line(self, x1, y1, x2, y2):
-        self.outputFile.write("<line x1=\"{0}\" y1=\"{1}\"  x2=\"{2}\" y2=\"{3}\" stroke=\"{4}\" stroke-width=\"{5}\"/>\n".format(x1, y1, x2, y2, self.strokeColor, 2))
+        self.outputFile.write("<line x1=\"{0}\" y1=\"{1}\"  x2=\"{2}\" y2=\"{3}\" stroke=\"{4}\" stroke-width=\"{5}\"/>\n".format(getX(x1), getY(y1), getX(x2), getY(y2), self.strokeColor, 2))
 
     def circle(self, r, x, y):
-        self.outputFile.write("<circle cx=\"{0}\" cy=\"{1}\" r=\"{2}\" stroke=\"{3}\" fill=\"{4}\" stroke-width=\"{5}\"  />\n".format(x,y,r, self.strokeColor, self.fillColor, 2)) 
+        self.outputFile.write("<circle cx=\"{0}\" cy=\"{1}\" r=\"{2}\" stroke=\"{3}\" fill=\"{4}\" stroke-width=\"{5}\"  />\n".format(getX(x),getY(y),getLength(r), self.strokeColor, self.fillColor, 2)) 
 
     def close(self ):
         self.outputFile.write("</svg>\n")
@@ -87,7 +114,11 @@ class BitMap(Graphics):
         return
 
     def close(self):
-        self.image.save(self.path, "JPEG")
+        if (self.path.endswith("jpg")):
+            self.image.save(self.path, "JPEG")
+        if (self.path.endswith("bmp")):
+            self.image.save(self.path, "BMP")
+
 
 
     def putPixel(self, x, y, color = (255, 255,255)):
@@ -112,5 +143,4 @@ if __name__ == "__main__":
         turtle.forward(100)
         turtle.left(90)
     turtle.close()
-
 

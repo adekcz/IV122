@@ -18,6 +18,7 @@ def plotData(inFile):
     size = 200
 
     svg = IV122Graphics.SVG("output/linreg.svg" ,size, size)
+    svg.flipByX()
     drawAxes(size, svg)
     for line in lines:
         point = line.split(" ")

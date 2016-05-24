@@ -1,3 +1,9 @@
+import sys, os, inspect
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+parent = "/".join(cmd_folder.split("/")[0:-1])
+parent += "/commonScripts"
+sys.path.insert(0,parent)
+
 import Commons
 import IV122Graphics
 import math
@@ -54,9 +60,9 @@ def drawFilledPolygon(points,name,  size):
 
 
 if __name__ == "__main__":
-    #circle("empty", 150,250,50, 0)
-    #circle("full", 150,250,50, 1)
-    #spiral("spiral", 250,250,50)
+    circle("empty", 150,250,50, 0)
+    circle("full", 150,250,50, 1)
+    spiral("spiral", 250,250,50)
     colorEquilateralTriangle("triangle")
     drawFilledPolygon( [(10, 10), (180, 20), (160, 150), (100, 50), (20, 180)],"polygon",  400)
 

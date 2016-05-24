@@ -110,6 +110,49 @@ def collatzMax(upperLimit):
     for i in range (1,upperLimit):
         outputMax.write(str(i) + "\t" + str(collatz_max(i)) + "\n")
 
+def nsdSubstract(a,b, computeStepCount = False):
+    print((a,b))
+    if (b==a):
+        if (computeStepCount):
+            return 1
+        return a
+    if (a>b):
+        if (computeStepCount):
+            return 1+ nsdSubstract(a-b, b, computeStepCount)
+        return nsdSubstract(a-b, b, computeStepCount)
+    if (a<b):
+        if (computeStepCount):
+            return 1+ nsdSubstract(b, a, computeStepCount)
+        return nsdSubstract(b, a, computeStepCount)
+
+    
+def nsdMod(a, b, computeStepCount = False):
+    if (b==0):
+        if (computeStepCount):
+            return 1
+        return a
+    if (computeStepCount):
+        return 1 + nsdMod(b, a % b, computeStepCount)
+    return nsdMod(b, a % b, computeStepCount)
+
+def visualizeNsds():
+    size = 400
+    bitmapForSubstract = IV122Graphics.BitMap("output/substract.bmp", size, size)
+    bitmapForModulo = IV122Graphics.BitMap("output/modulo.bmp", size, size)
+    for i in range(1,size):
+        for j in range(1,size):
+            stepCountSubstract =  nsdSubstract(i,j, True) 
+            stepCountMod =  nsdMod(i,j, True) 
+            print((i,j, stepCountSubstract, stepCountMod))
+            #colorSubstract = (255- stepCountSubstract%255,255-  (stepCountSubstract/255)%255,255-  ((stepCountSubstract/255)/255)%255)
+            #colorMod = (255- stepCountMod%255,255-  (stepCountMod/255)%255,255-  ((stepCountMod/255)/255)%255)
+            colorSubstract = (255-stepCountSubstract, 0,0)
+            colorMod = (255-stepCountMod, 0,0)
+            bitmapForSubstract.putPixel(i, size-j, colorSubstract)
+            bitmapForModulo.putPixel(i, size-j, colorMod)
+    bitmapForSubstract.close()
+    bitmapForModulo.close()
+    
 if __name__ == "__main__":
     
     print("started from console!!!! (hello world)") 
@@ -122,3 +165,19 @@ if __name__ == "__main__":
     weirdGrid()
     squaredRainbow()
     Commons.printArray(ullmanSpiral(5))
+
+    print("-----")
+    print(nsdMod(54,28))
+    print("--")
+    print(nsdSubstract(54,28))
+    print("-------")
+    print(nsdMod(54,30))
+    print("--")
+    print(nsdSubstract(54,30))
+    print("-------")
+    print(nsdMod(399,398, True))
+    print("--")
+    print(nsdSubstract(399,398, True))
+
+
+    #visualizeNsds()
