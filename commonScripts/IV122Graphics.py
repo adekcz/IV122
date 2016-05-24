@@ -20,23 +20,23 @@ class SVG(Graphics):
         self.width = width
         self.height = height
 
-    def getX(inputX):
-        if(flippedByX):
+    def getX(self, inputX):
+        if(self.flippedByX):
             return self.height - inputX
         else:
             return inputX
 
-    def getY(inputY):
+    def getY(self, inputY):
         return inputY
 
-    def getLength(orig):
+    def getLength(self, orig):
         return orig
 
-    def setCustomMid(newX, newY):
+    def setCustomMid(self, newX, newY):
         self.midX = newX
         self.midY = newY
 
-    def fliByX():
+    def fliByX(self):
         self.flippedByX = not self.flippedByX
 
     #current version supports only squares (newMaxX == newMaxY) bcs of rescaling lines not perpendicular to axes...
@@ -55,10 +55,10 @@ class SVG(Graphics):
         self.fillColor  = c
 
     def rect(self,x1,y1, width, height):
-        self.outputFile.write("<rect x=\"{0}\" y=\"{1}\" width=\"{2}\" height=\"{3}\" fill=\"{4}\" />\n".format(getX(x1), getY(y1), getLength(width), getLength(height), self.fillColor))
+        self.outputFile.write("<rect x=\"{0}\" y=\"{1}\" width=\"{2}\" height=\"{3}\" fill=\"{4}\" />\n".format(self.getX(x1), self.getY(y1), self.getLength(width), self.getLength(height), self.fillColor))
 
     def line(self, x1, y1, x2, y2):
-        self.outputFile.write("<line x1=\"{0}\" y1=\"{1}\"  x2=\"{2}\" y2=\"{3}\" stroke=\"{4}\" stroke-width=\"{5}\"/>\n".format(getX(x1), getY(y1), getX(x2), getY(y2), self.strokeColor, 2))
+        self.outputFile.write("<line x1=\"{0}\" y1=\"{1}\"  x2=\"{2}\" y2=\"{3}\" stroke=\"{4}\" stroke-width=\"{5}\"/>\n".format(self.getX(x1), self.getY(y1), self.getX(x2), self.getY(y2), self.strokeColor, 2))
 
     def circle(self, r, x, y):
         self.outputFile.write("<circle cx=\"{0}\" cy=\"{1}\" r=\"{2}\" stroke=\"{3}\" fill=\"{4}\" stroke-width=\"{5}\"  />\n".format(getX(x),getY(y),getLength(r), self.strokeColor, self.fillColor, 2)) 

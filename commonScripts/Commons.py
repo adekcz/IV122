@@ -1,6 +1,24 @@
 import math
 import os
+import time
 
+def get_time():
+    return int(round(time.time() * 1000))
+
+class Timer():
+    def __init__(self):
+        self.startTime = 0
+        self.endTime = 0
+        
+    def start(self):
+        self.startTime = get_time()
+
+    def stop(self):
+        self.endTime = get_time()
+        return self.getDif()
+
+    def getDif(self):
+        return self.endTime - self.startTime
 
 def equalsDelta(val, delta):
     return  abs(val) <= delta
