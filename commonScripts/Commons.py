@@ -2,6 +2,30 @@ import math
 import os
 import time
 
+def checkIsBetween(p1, p2, checkedP):
+    for i in range(2):
+        if ((abs(p1[i] - checkedP[i]) + abs(p2[i] - checkedP[i])) != abs(p1[i] - p2[i])): #comparing false, should use epsilon
+            return False
+    return True
+
+
+#p1 and p2 determines line1
+#p3 and p4 determines line4
+def computeLineIntersection(p1, p2, p3, p4):
+    denX = ((p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1] -p2[1])*(p3[0]-p4[0]))
+    denY = ((p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1] -p2[1])*(p3[0]-p4[0]))
+    if(denX== 0 or denY == 0):
+        return -2
+    ix = ((p1[0]*p2[1] - p1[1]*p2[0])*(p3[0]-p4[0]) - (p1[0] - p2[0])*(p3[0]*p4[1] - p3[1]*p4[0]))/denX
+    iy = ((p1[0]*p2[1] - p1[1]*p2[0])*(p3[1]-p4[1]) - (p1[1] - p2[1])*(p3[0]*p4[1] - p3[1]*p4[0]))/denY
+    result = (ix, iy)
+    if (not checkIsBetween(p1, p2, result)):
+        return -1
+    if (not checkIsBetween(p3, p4, result)):
+        return -1
+    return result
+
+
 def get_time():
     return int(round(time.time() * 1000))
 
@@ -45,3 +69,10 @@ def degToRad(deg):
 def printArray(array):
     for line in array:
         print(line)
+
+def cos(deg):
+    return math.cos(degToRad(deg))
+
+
+def sin(deg):
+    return math.sin(degToRad(deg))

@@ -10,21 +10,7 @@ import Commons
 import math
 
 
-def checkIsBetween(p1, p2, checkedP):
-    for i in range(2):
-        if ((abs(p1[i] - checkedP[i]) + abs(p2[i] - checkedP[i])) != abs(p1[i] - p2[i])): #comparing false, should use epsilon
-            return False
-    return True
 
-def computeLineIntersection(p1, p2, p3, p4):
-    ix = ((p1[0]*p2[1] - p1[1]*p2[0])*(p3[0]-p4[0]) - (p1[0] - p2[0])*(p3[0]*p4[1] - p3[1]*p4[0]))/((p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1] -p2[1])*(p3[0]-p4[0]))
-    iy = ((p1[0]*p2[1] - p1[1]*p2[0])*(p3[1]-p4[1]) - (p1[1] - p2[1])*(p3[0]*p4[1] - p3[1]*p4[0]))/((p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1] -p2[1])*(p3[0]-p4[0]))
-    result = (ix, iy)
-    if (not checkIsBetween(p1, p2, result)):
-        return -1
-    if (not checkIsBetween(p3, p4, result)):
-        return -1
-    return result
 
 def intersections(n, name, normal = False):
     size = 400
@@ -39,7 +25,7 @@ def intersections(n, name, normal = False):
     for line1 in lines:
         for line2 in lines:
             if(line1 != line2):
-                inter = computeLineIntersection(line1[0], line1[1], line2[0], line2[1])
+                inter = Commons.computeLineIntersection(line1[0], line1[1], line2[0], line2[1])
                 if (inter == -1):
                     continue
                 img.setFill("Red")
