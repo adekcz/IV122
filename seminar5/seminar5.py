@@ -46,27 +46,58 @@ def closure(n):
     for p in points:
         img.circle(5, p[0], p[1])
         
-    startPoint = leftMostPoint(points)
-    img.setFill("Red")
-    img.circle(10, startPoint[0], startPoint[1])
-    img.setFill()
-    currentPoint = startPoint
+    
+    while(len(points)>0):
+        startPoint = leftMostPoint(points)
+        img.setFill("Blue")
+        img.circle(10, startPoint[0], startPoint[1])
+        img.setFill()
 
-    for i in range(len(points)):
-        nextPoint = findNextPointUniversal(currentPoint, points, lambda origin,p: p[0] < origin[0] or p[1]<origin[1], lambda origin, p: float(p[0] - origin[0]) / float(p[1]- origin[1]))
-        img.line(currentPoint[0], currentPoint[1],nextPoint[0],nextPoint[1])
-        currentPoint = nextPoint
-    for i in range(len(points)):
-        nextPoint = findNextPointUniversal(currentPoint, points, lambda origin,p: p[0] < origin[0] or p[1]>origin[1], lambda origin, p: float(abs(p[1] - origin[1])) / float(abs(p[0]- origin[0])))
-        img.line(currentPoint[0], currentPoint[1],nextPoint[0],nextPoint[1])
-        currentPoint = nextPoint
+#doprav adolu
+        cond = lambda startPoint, point: (point[0]>startPoint[0] and point[1]>startPoint[1])
+        computation = lambda startPoint, point:  float(point[0] - startPoint[0]) / float((point[1]- startPoint[1]))
 
+        startPoint =  partialConvexClosure(startPoint, points, cond, computation, img)
+                        
+#doprava nahoru
+        cond = lambda startPoint, point: (point[0]>startPoint[0] and point[1]<startPoint[1])
+        computation = lambda startPoint, point:   float( startPoint[1]- point[1])/float(point[0] - startPoint[0]) 
+
+        startPoint =  partialConvexClosure(startPoint, points, cond, computation, img)
+                        
+#doleva nahoru
+        cond = lambda startPoint, point: (point[0]<startPoint[0] and point[1]<startPoint[1])
+        computation = lambda startPoint, point:   float( startPoint[0]- point[0])/float(startPoint[1] - point[1]) 
+        startPoint =  partialConvexClosure(startPoint, points, cond, computation, img)
+
+#doleva dolu
+        cond = lambda startPoint, point:  (point[0]<startPoint[0] and point[1]>startPoint[1])
+        computation = lambda startPoint, point:   float( point[1]- startPoint[1])/float(startPoint[0] - point[0]) 
+        startPoint =  partialConvexClosure(startPoint, points, cond, computation, img)
 
     img.close()
 
 def vectorSize(a, b):
     return math.sqrt(a**2 + b**2)
     
+def partialConvexClosure(startPoint, points, condition, ratioComputation, img):
+    minPoint = startPoint
+    for j in range(len(points)):
+        minRatio = 100000
+        minPoint = startPoint
+        for i in range(len(points)):
+            point = points[i]
+            if (condition(startPoint, point)):
+                ratio = ratioComputation(startPoint, point) #tangens pomer..
+                if (ratio<minRatio):
+                    minPoint = point
+                    minRatio = ratio
+        
+        img.line(startPoint[0], startPoint[1],minPoint[0],minPoint[1])
+        startPoint = minPoint
+        if minPoint in points: points.remove(minPoint)
+    return minPoint
+
 def findNextPointUniversal(origin, points, condition, ratioComputation):
     largestSoFar = 100
     result = origin
@@ -143,10 +174,10 @@ def generateLineSegments(n, upperLimitForCoordinate, normal = False):
 
 if __name__ == "__main__":
     n = 20
-    intersections(20, "intersectionsUniform1")
-    intersections(20, "intersectionsUniform2")
-    intersections(20, "intersectionsNormalDist1", True)
-    intersections(20, "intersectionsNormalDist2", True)
-    #closure(40)
+    #intersections(20, "intersectionsUniform1")
+    #intersections(20, "intersectionsUniform2")
+    #intersections(20, "intersectionsNormalDist1", True)
+    #intersections(20, "intersectionsNormalDist2", True)
+    closure(40)
     print(Commons.radToDeg(math.atan(1)))
 

@@ -67,6 +67,34 @@ def LSystemGenerator(name, init, rules, interpretation, nesting):
     drawImage(name, tempString, interpretation)
     return
 
+def getNextFeingenbaum(xt, param):
+    return 4 * param * xt * (1-xt)
+
+
+
+#x_min, x_max - values between 0.0 and 1.0, used to selecet specific interval of interest in diagram
+#steps  - how many values will be analyes
+def feingebaum(x_min, x_max, steps, name, size = 100):
+    jpeg = IV122Graphics.BitMap("output/" + name + ".jpg", size,size)
+
+    dif = x_max - x_min
+    step = (float(dif) / steps)
+
+    myRange = []
+    for x in range(steps): #containes "steps" number of values from 0 to 1, scaled according to specified zoom 
+        myRange.append(x*step * (1/dif))
+
+    print myRange
+    for i in myRange:
+        xt = 0.5
+        for j in range(200):
+            xt = getNextFeingenbaum(xt, i*dif + x_min ) #adding to i to scale according to zoom
+            if (j> 100):
+                jpeg.putPixel(i*(size), size - (size*xt) -1, (0,0,0) ) #odecitam od size,  aby to nebylo obracen
+
+    jpeg.close()
+
+
 if __name__ == "__main__":
     #print(generateNGonPoint(3,100))
     #chaosgame("output/chaos3_half.jpg", 3, 0.5)
@@ -74,5 +102,7 @@ if __name__ == "__main__":
     #chaosgame("output/chaos6_third.jpg", 6, 1.0/3)
 
     
-    LSystemGenerator("output/lsystem1.svg", "F--F--F", [("F", "F+F--F+F")], 
-    {"F" : "forward(2)", "+" : "right(60)", "-" : "left(60)"}, 5)
+    #LSystemGenerator("output/lsystem1.svg", "F--F--F", [("F", "F+F--F+F")], 
+    #{"F" : "forward(2)", "+" : "right(60)", "-" : "left(60)"}, 5)
+
+    feingebaum(0.8, 1.0,2000, "feinb2", 800)

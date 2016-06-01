@@ -19,30 +19,42 @@ class SVG(Graphics):
         self.flippedByX = False
         self.width = width
         self.height = height
+        self.midX = 0
+        self.midY = 0
+        self.maxX = width
+        self.maxY = height
+
+
+
+    def _getRescaledX(self, coor):
+        return coor* (self.width/float(self.maxX))
+
+    def _getRescaledY(self, coor):
+        return coor* (self.height/float(self.maxY))
 
     def getX(self, inputX):
-        if(self.flippedByX):
-            return self.height - inputX
-        else:
-            return inputX
+        return self._getRescaledX(inputX) + self.midX
 
     def getY(self, inputY):
-        return inputY
+        if(self.flippedByX):
+            return  self.midY - self._getRescaledY(inputY) 
+        else:
+            return self._getRescaledY(inputY) + self.midY
 
     def getLength(self, orig):
         return orig
 
-    def setCustomMid(self, newX, newY):
-        self.midX = newX
-        self.midY = newY
+    def setMidInCenter(self):
+        self.midX = self.width /2
+        self.midY = self.height /2
 
-    def fliByX(self):
+    def flipByX(self):
         self.flippedByX = not self.flippedByX
 
     #current version supports only squares (newMaxX == newMaxY) bcs of rescaling lines not perpendicular to axes...
-    def resizeCoordinates(newMaxX, newMaxY):
-        this.maxX = newMaxX
-        this.maxY = newMaxY
+    def resizeCoordinates(self, newMaxX, newMaxY):
+        self.maxX = newMaxX
+        self.maxY = newMaxY
 
     def close(self):
         self.outputFile.write( "</svg>\n" )
@@ -61,7 +73,7 @@ class SVG(Graphics):
         self.outputFile.write("<line x1=\"{0}\" y1=\"{1}\"  x2=\"{2}\" y2=\"{3}\" stroke=\"{4}\" stroke-width=\"{5}\"/>\n".format(self.getX(x1), self.getY(y1), self.getX(x2), self.getY(y2), self.strokeColor, 2))
 
     def circle(self, r, x, y):
-        self.outputFile.write("<circle cx=\"{0}\" cy=\"{1}\" r=\"{2}\" stroke=\"{3}\" fill=\"{4}\" stroke-width=\"{5}\"  />\n".format(getX(x),getY(y),getLength(r), self.strokeColor, self.fillColor, 2)) 
+        self.outputFile.write("<circle cx=\"{0}\" cy=\"{1}\" r=\"{2}\" stroke=\"{3}\" fill=\"{4}\" stroke-width=\"{5}\"  />\n".format(self.getX(x),self.getY(y),self.getLength(r), self.strokeColor, self.fillColor, 2)) 
 
     def close(self ):
         self.outputFile.write("</svg>\n")
