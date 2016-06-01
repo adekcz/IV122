@@ -1,0 +1,142 @@
+import sys, os, inspect
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+parent = "/".join(cmd_folder.split("/")[0:-1])
+parent += "/commonScripts"
+sys.path.insert(0,parent)
+
+import IV122Graphics
+import Commons
+
+class Vertex:
+    def __init__(self, data, visited=False):
+        self.data = data
+        self.visited =visited
+
+    def getData(self):
+        return self.data
+
+    def getVisited(self):
+        return self.visited
+
+    def setVisited(self):
+        self.visited = True
+class Maze:
+    def __init__(self, width, height):
+        self.maze = [[0 for x in range(width)] for y in range(height)] 
+        self.width = width
+        self.height = height
+
+    def getMaze(self):
+        return selfMaze
+
+    def getVertex(self, x,y):
+        return self.maze[y][x]
+
+    def setMaze(self, maze):
+        self.maze = maze
+
+    def getWidth(self):
+        return self.width
+
+    def getHeight(self):
+        return self.height
+
+        
+def getNeighbours(maze,x,y):
+    data = maze.getVertex(x,y).getData()
+    width = maze.getWidth()
+    height = maze.getHeight()
+
+    neighbours = []
+    if (x+data < width):
+        neighbours.append((x+data, y))
+    if (x-data >= 0):
+        neighbours.append((x-data, y))
+    if (y+data < height):
+        neighbours.append((x, y+data))
+    if (y-data >= 0):
+        neighbours.append((x, y-data))
+
+
+    return neighbours
+    
+
+#napr pridat index ktery znaci hloubku, a kdyz se najde cesta tak nejit do hlubsi urovne ale dohledat soucasnou..
+def bfs(graph, startX, startY, level = 0 ):
+
+
+    firstSolutionFoundOnLevel = -1
+    vertex = maze.getVertex(startX, startY)
+    vertex.setVisited()
+
+    queue = [(startX, startY, 0)] #(x,y, levelOfBfsNesting)
+    while(queue):
+        print("-")
+        printGraph(graph)
+        vertexCoord = queue.pop(0)
+
+        if (firstSolutionFoundOnLevel ==vertexCoord[2]):
+            if (vertexCoord[2] == graph.getWidth()-1 and vertexCoord[1] == graph.getHeight() -1):
+                print "Nalezena dalsi cesta"
+
+            continue #urcite nepridavat dalsi do fronty
+        if (vertexCoord[0] == graph.getWidth()-1 and vertexCoord[1] == graph.getHeight() -1):
+            print "Nalezena cesta"
+            firstSolutionFoundOnLevel = vertexCoord[2]
+            continue
+        
+        neighbours =  getNeighbours(maze, vertexCoord[0], vertexCoord[1])
+        print startX, startY, neighbours
+
+        for neighbour in neighbours:
+            #print("in for", vertexCoord, " ", vertex1.getData(), " ", vertex1.getVisited())
+            vertex2 = maze.getVertex(neighbour[0], neighbour[1])
+            if (not vertex2.getVisited()):
+                vertex2.setVisited()
+                queue.append( (neighbour[0], neighbour[1], vertexCoord[2] +1))
+        print queue
+    
+def printGraph(maze):
+    for y in range(maze.getHeight()):
+        for x in range(maze.getWidth()):
+            vertex = maze.getVertex(x,y)
+            print "{0} {1},".format(vertex.getData(), vertex.getVisited()),
+        print()
+
+def loadNumericalMaze(path):
+    mazeInFile = open(path)
+    maze = []
+    for line in mazeInFile.readlines():
+        maze.append([])
+        for strNum in line.split(" "):
+            maze[-1].append(Vertex(int(strNum),False))
+
+    result = Maze(len(maze[0]), len(maze))
+    result.setMaze(maze)
+
+    printGraph(result)
+    return result
+
+if __name__ == "__main__":
+    maze = loadNumericalMaze("maze1Num.txt")
+    bfs(maze,0,0)
+    
+
+
+
+
+
+
+
+
+
+
+#1. BFS
+#2. dijkstra
+#3. DFS 
+#4. NP?
+#5. NP?
+#6. takove ty hladove, jarnici, boruvky...
+
+
+
