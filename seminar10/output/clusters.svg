@@ -1,0 +1,51 @@
+<svg version="1.1"
+     baseProfile="full"
+     width="200" height="200"
+     xmlns="http://www.w3.org/2000/svg">
+<line x1="-10505.3191003" y1="100.0"  x2="10705.3191003" y2="100.0" stroke="Black" stroke-width="2"/>
+<line x1="100.0" y1="10705.3191003"  x2="100.0" y2="-10505.3191003" stroke="Black" stroke-width="2"/>
+<circle cx="74.0012989433" cy="136.755524519" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="11.9685772775" cy="173.850099577" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="115.845596881" cy="9.2746195477" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="80.1988011445" cy="138.521187742" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="16.606287239" cy="170.23125384" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="116.837259436" cy="8.0507426508" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="73.5571621244" cy="139.49033973" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="16.3622669903" cy="168.449085987" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="117.687169987" cy="3.31205333523" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="75.2644562101" cy="138.002260328" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="14.9631696305" cy="165.251918578" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="112.630805894" cy="1.00519272798" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="70.0194092022" cy="135.517135516" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="20.4025890502" cy="174.29900253" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="113.717789151" cy="9.13936667265" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="76.2824737174" cy="138.968706608" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="18.697380697" cy="169.121750853" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="108.414301977" cy="0.210109606692" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="74.4585030981" cy="142.803324576" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="17.2053684495" cy="165.775886625" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="110.610522663" cy="7.0092929311" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="69.9965617501" cy="142.72958439" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="12.5410641676" cy="167.974006897" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="118.030927593" cy="5.56180931459" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="76.727165544" cy="136.184144576" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="15.8532571058" cy="173.442426624" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="112.723803492" cy="6.43954077021" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="73.503526848" cy="134.206591888" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="17.452915549" cy="166.338474957" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="110.811509769" cy="5.69933404858" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="74.6418766788" cy="138.162267602" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="15.9264751751" cy="165.399652393" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="111.454852001" cy="8.07269636055" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="72.7752345757" cy="141.416345895" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="20.58515878" cy="167.886694465" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="109.624777663" cy="0.0" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="74.7839393622" cy="137.752447135" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="17.8000097038" cy="166.720356671" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="114.385350147" cy="7.99889611542" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="69.8405584234" cy="141.476147534" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="19.1864448127" cy="172.616184546" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="116.162524867" cy="8.95221229463" r="1" stroke="green" fill="green" stroke-width="2"  />
+<circle cx="76.8427881648" cy="142.667711115" r="1" stroke="red" fill="red" stroke-width="2"  />
+<circle cx="17.7877259828" cy="169.45887597" r="1" stroke="red" fill="red" stroke-width="2"  />
+</svg>
